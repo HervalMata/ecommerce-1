@@ -93,7 +93,7 @@
         while (list($id, $category) = mysqli_fetch_array($r, MYSQLI_NUM)) {
           echo '<a href="category.php?id=' . $id . '"
            class="list-group-item" title="' . $category . '">' . 
-           htmlspecialchars($category) . '</a>';
+           htmlspecialchars($category) . ' </a>';
         }
         ?>
 			</div><!--/list-group-->
