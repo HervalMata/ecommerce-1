@@ -48,7 +48,7 @@
             foreach ($pages as $k => $v) {
               echo '<li';
               if ($this_page == $v) echo ' class="active"';
-              echo '><a href="' . $v . '">'</a></li>
+              echo '><a href="' . $v . '">' . $k . '</a></li>';
             } // End of foreach
             if (isset($_SESSION['user_id'])) {
               echo '<li class="dropdown">
@@ -90,7 +90,7 @@
 
         $q = 'SELECT * FROM categories ORDER BY category';
         $r = mysqli_query($dbc, $q);
-        while (list($id, $category) = mysqli_fetch_array($r, -MYSQLI_NUM)) {
+        while (list($id, $category) = mysqli_fetch_array($r, MYSQLI_NUM)) {
           echo '<a href="category.php?id=' . $id . '"
            class="list-group-item" title="' . $category . '">' . 
            htmlspecialchars($category) . '</a>';
@@ -100,7 +100,7 @@
       
       <?php
       if (!isset($_SESSION['user_id'])) {
-        require('includes/login__form.inc.php');
+        require('includes/login_form.inc.php');
       }
       ?>
 
