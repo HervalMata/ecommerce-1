@@ -13,7 +13,7 @@ session_start();
 function my_error_handler($e_number, $e_message, $e_file,
  $e_line, $e_vars) {
 	$message = "An error occured in script '$e_file' on e_line
-	 $e_line:\n$e_message\n";
+			$e_line:\n$e_message\n";
 	$message .= "<pre>" .print_r(debug_backtrace(), 1) . "</pre>\n";
 	if (!LIVE) {
 		echo '<div class="aler alert-danger">' . nl2br($message)
@@ -23,8 +23,26 @@ function my_error_handler($e_number, $e_message, $e_file,
 		 'From:admin@example.com');
 		if ($e_number != E_NOTICE) {
 			echo '<div class="alert alert-danger">A system error
-			 occured. We apologize for the incnvenience.</div>';
+					occured. We apologize for the incnvenience.</div>';
 		}
 	} // end of live if/else
 } // end of my_error_handler() def
+// define redirect function
+function redirect_invalid_user($check = 'user_id', $destination = 
+ 'index.php', $protocol = 'http://') {
+	if (!headers_sent()) {
+	// Redirect code.
+	if (!isset($_SESSION[check])) {
+		$url = $protocol . BASE_URL . $destination;
+		header("Location: $url");
+		exit();
+	}
+	} else {
+	include_once(‘./includes/header.html’);
+	trigger_error(‘You do not have permission to access this page.
+			Please log in and try again.’);
+	include_once(‘./includes/footer.html’);
+	}
+}
+// set error handler
 set_error_handler('my_error_handler');
