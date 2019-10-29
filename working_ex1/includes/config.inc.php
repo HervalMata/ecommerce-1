@@ -38,10 +38,10 @@ function redirect_invalid_user($check = 'user_id', $destination =
 		exit();
 	}
 	} else {
-	include_once(‘./includes/header.html’);
-	trigger_error(‘You do not have permission to access this page.
-			Please log in and try again.’);
-	include_once(‘./includes/footer.html’);
+	include_once('./includes/header.html');
+	trigger_error('You do not have permission to access this page.
+			Please log in and try again.');
+	include_once('./includes/footer.html');
 	}
 }
 // set error handler

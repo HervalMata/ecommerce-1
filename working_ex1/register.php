@@ -1,34 +1,57 @@
 <?php
-require('./inlcudes/config.inc.php');
+
+// This is the registration page for the site.
+// This file both displays and processes the registration form.
+// This script is begun in Chapter 4.
+
+// Require the configuration before any PHP code as the configuration controls error reporting:
+require('./includes/config.inc.php');
+// The config file also starts the session.
+
+// Require the database connection:
 require(MYSQL);
+
+// Include the header file:
 $page_title = 'Register';
 include('./includes/header.html');
+
+// For storing registration errors:
 $reg_errors = array();
+
+// Check for a form submission:
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	if (preg_match ('/^[A-Z \'.-]{2,45}$/i', $_POST['first_name'])) {
+
+	// Check for a first name:
+	if (preg_match('/^[A-Z \'.-]{2,45}$/i', $_POST['first_name'])) {
 		$fn = escape_data($_POST['first_name'], $dbc);
 	} else {
 		$reg_errors['first_name'] = 'Please enter your first name!';
 	}
-	if (preg_match ('/^[A-Z \'.-]{2,45}$/i', $_POST['last_name'])) {
+	
+	// Check for a last name:
+	if (preg_match('/^[A-Z \'.-]{2,45}$/i', $_POST['last_name'])) {
 		$ln = escape_data($_POST['last_name'], $dbc);
 	} else {
 		$reg_errors['last_name'] = 'Please enter your last name!';
 	}
-	if (preg_match ('/^[A-Z0-9]{2,45}$/i', $_POST['username'])) {
+	
+	// Check for a username:
+	if (preg_match('/^[A-Z0-9]{2,45}$/i', $_POST['username'])) {
 		$u = escape_data($_POST['username'], $dbc);
 	} else {
-		$reg_errors['username'] = 'Please enter a desired name using
-		only letters and numbers!';
+		$reg_errors['username'] = 'Please enter a desired name using only letters and numbers!';
 	}
-	if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-		$e = escape_data($_POST['email'], $dbc)
+	
+	// Check for an email address:
+	if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) === $_POST['email']) {
+		$e = escape_data($_POST['email'], $dbc);
 	} else {
 		$reg_errors['email'] = 'Please enter a valid email address!';
 	}
-	if (preg_match('/^(\w*(?=\w*\d)(?=\w*[a-z])(?=\w*[A-Z])\w*){6,}$/', 
-	$_POST['pass1'])) {
-		if ($_POST['pass1'] === $_POST['pass2]']) {
+
+	// Check for a password and match against the confirmed password:
+	if (preg_match('/^(\w*(?=\w*\d)(?=\w*[a-z])(?=\w*[A-Z])\w*){6,}$/', $_POST['pass1'])) {
+		if ($_POST['pass1'] === $_POST['pass2']) {
 			$p = $_POST['pass1'];
 		} else {
 			$reg_errors['pass2'] = 'Your password did not match the confirmed password!';
@@ -36,16 +59,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	} else {
 		$reg_errors['pass1'] = 'Please enter a valid password!';
 	}
-	if (empty($reg_errors)) {
-		$q = "SELECT email, username, FROM users WHERE email='$e' OR username='$u'";
+
+	if (empty($reg_errors)) { // If everything's OK...
+
+		// Make sure the email address and username are available:
+		$q = "SELECT email, username FROM users WHERE email='$e' OR username='$u'";
+		$r = mysqli_query($dbc, $q);
+	
+		// Get the number of rows returned:
 		$rows = mysqli_num_rows($r);
-		if ($rows === 0) {
+
+		if ($rows === 0) { // No problems!
+			
+			// Add the user to the database...
+			
+			// Include the password_compat library, if necessary:
+			// include('./includes/lib/password.php');
+			
+			// Sets expiration to a month
 			$q = "INSERT INTO users (username, email, pass, first_name
 			last_name, date_expires) VALUES ('$u', '$e', '" . 
 			password_hash($p, PASSWORD_BCRYPT) . "', '$fn', '$ln'
 			ADDATE(NOW(), INTERVAL 1 MONTH))";
+
 			$r = mysqli_query($dbc, $q);
-			if (mysqli_affected_rows($dbc) === 1) {
+
+			if (mysqli_affected_rows($dbc) === 1) { // If it ran OK.
+	
+				// Get the user ID:
+				// Store the new user ID in the session:		
+
+				// Display a thanks message...
 				echo '<div class="alert alert-success"<h3>Thanks!</h3>
 				<p>Thank you for registering! You may now log in and Access
 				the site\'s content.</p></div>';
@@ -75,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					use the link at the left to have your password sent to you.';
 				} elseif ($row[0] === $_POST['email']) {
 					$reg_errors['email'] = 'This email address has already been registered. If you have 
-					forgotten your password, use the link at left to have your password sent to you.'
+					forgotten your password, use the link at left to have your password sent to you.';
 				} elseif ($row[1] === $_POST['username']) {
 					$reg_errors['username'] = 'This username has already been taken. Please try another.';
 				}

@@ -37,5 +37,5 @@ function create_form_input($name, $type, $label = '',
 				if ($value) echo $value;
 				echo '</textarea>';
 		} // end of primary if-else
-		echo '</div>';S
+		echo '</div>';
 } // end of create_form_input() function
