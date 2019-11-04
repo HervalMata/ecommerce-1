@@ -2,11 +2,11 @@
 if (!defined('LIVE')) DEFINE('LIVE', false);
 DEFINE('CONTACT_EMAIL', 'you@example.com');
 if (strtoupper(substr(php_uname('s'), 0, 3)) == 'WIN') {
-	define ('BASE_URI', 'C:\xampp\htdocs\ecommerce\working_ex1\includes\\');
+	define ('BASE_URI', 'C:\xampp\xamppfileshtdocs\ecommerce\working_ex1\includes\\');
 } else {
-	define ('BASE_URI', '/Users/nferrari/Applications/XAMPP/htdocs/working_ex1/includes/');
+	define ('BASE_URI', '/Applications/XAMPP/xamppfiles/htdocs/ecommerce/working_ex1/includes/');
 }
-define ('BASE_URL', 'localhost/working_ex1/');
+define ('BASE_URL', 'localhost/ecommerce/working_ex1/');
 define ('MYSQL', BASE_URI . 'mysql.inc.php');
 session_start();
 // define error handling

@@ -1,5 +1,5 @@
 <?php
-require('/inlcudes/config.inc.php');
+require('./includes/config.inc.php');
 redirect_invalid_user();
 require(MYSQL);
 $page_title = 'Change Your Password';
@@ -42,14 +42,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } // End of empty($pass_errors) IF
 } // End of the form submission conditional
 // Display the form:
-require_once('./inlcudes/form_functions.inc.php');
+require_once('./includes/form_functions.inc.php');
 ?><h1>Change Your Password</h1>
 <p>Use the form below to change your password.</p>
 <form action="change_password.php" method="post" accept-charset="utf-8">
 <?php
 creat_form_input('current', 'password', 'Current Password', $pass_errors);
-echo '<span class="help-block">Must be at least 6 characters long, with at least one lowercase lette, one uppercase letter, and one number.</span>';
+echo '<span class="help-block">Must be at least 6 characters long, with at least one lowercase letter, one uppercase letter, and one number.</span>';
 create_form_input('pass2', 'password', 'Confirm Password', $pass_errors);
 ?>
 <input tye="submit" name="submit_button" value="Change &rarr;" id="submit_button" class="btn btn-default" />
 </form>
+<?php include('./includes/footer.html'); ?>
