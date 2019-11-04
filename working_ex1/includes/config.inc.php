@@ -28,20 +28,16 @@ function my_error_handler($e_number, $e_message, $e_file,
 	} // end of live if/else
 } // end of my_error_handler() def
 // define redirect function
-function redirect_invalid_user($check = 'user_id', $destination = 
- 'index.php', $protocol = 'http://') {
-	if (!headers_sent()) {
-	// Redirect code.
-	if (!isset($_SESSION[check])) {
+function redirect_invalid_user($check = 'user_id', $destination = 'index.php', $protocol = 'http://') {
+	if (!isset($_SESSION[$check])) {
 		$url = $protocol . BASE_URL . $destination;
 		header("Location: $url");
 		exit();
-	}
 	} else {
-	include_once('./includes/header.html');
-	trigger_error('You do not have permission to access this page.
-			Please log in and try again.');
-	include_once('./includes/footer.html');
+		include_once('./includes/header.html');
+		trigger_error('You do not have permission to access this page.
+				Please log in and try again.');
+		include_once('./includes/footer.html');
 	}
 }
 // set error handler

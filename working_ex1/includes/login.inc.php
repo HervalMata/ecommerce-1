@@ -11,8 +11,7 @@ if (!empty($_POST['pass'])) {
 	$login_errors['pass'] = 'Please enter your password!';
 }
 if (empty($login_errors)) {
-	$q = "SELECT id, username, type, pass, IF(date_expires >= 
-	NOW(), true, false) AS expired FROM users WHERE email='$e'";
+	$q = "SELECT id, username, type, pass, IF(date_expires >= NOW(), true, false) AS expired FROM users WHERE email='$e'";
 	$r = mysqli_query($dbc, $q);
 	if (mysqli_num_rows($r) === 1) {
 		$row = mysqli_fetch_array($r, MYSQLI_ASSOC);
