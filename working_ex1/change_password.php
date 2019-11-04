@@ -47,7 +47,7 @@ require_once('./includes/form_functions.inc.php');
 <p>Use the form below to change your password.</p>
 <form action="change_password.php" method="post" accept-charset="utf-8">
 <?php
-creat_form_input('current', 'password', 'Current Password', $pass_errors);
+create_form_input('current', 'password', 'Current Password', $pass_errors);
 echo '<span class="help-block">Must be at least 6 characters long, with at least one lowercase letter, one uppercase letter, and one number.</span>';
 create_form_input('pass2', 'password', 'Confirm Password', $pass_errors);
 ?>
