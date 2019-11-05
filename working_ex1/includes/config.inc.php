@@ -33,12 +33,7 @@ function redirect_invalid_user($check = 'user_id', $destination = 'index.php', $
 		$url = $protocol . BASE_URL . $destination;
 		header("Location: $url");
 		exit();
-	} else {
-		include_once('./includes/header.html');
-		trigger_error('You do not have permission to access this page.
-				Please log in and try again.');
-		include_once('./includes/footer.html');
-	}
+	} 
 }
 // set error handler
 set_error_handler('my_error_handler');

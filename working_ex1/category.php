@@ -26,5 +26,13 @@ if (filter_var($_GET['id'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
 		while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 			echo '<div><h4><a href="page.php?id=' . $row['id'] . '">' . htmlspecialchars($row['title']) . '</a></h4><p>' . htmlspecialchars($row['description']) . '</p></div>';
 		} // end of while loop
+	} else { // no pages are available
+		echo '<p>There are currently no pages of content associated with this category. Please check back again!</p>';
 	}
+} else {
+	$page_title = 'Error!';
+	include('./includes/header.php');
+	echo '<div class="alert alert-danger">This page has been accessed in error.</div>';
 }
+include('./includes/footer.html');
+?>
