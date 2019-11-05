@@ -87,7 +87,6 @@
 				<h3 class="text-success">Content</h3>
 			<div class="list-group">
         <?php
-
         $q = 'SELECT * FROM categories ORDER BY category';
         $r = mysqli_query($dbc, $q);
         while (list($id, $category) = mysqli_fetch_array($r, MYSQLI_NUM)) {

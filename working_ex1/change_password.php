@@ -3,7 +3,7 @@ require('./includes/config.inc.php');
 redirect_invalid_user();
 require(MYSQL);
 $page_title = 'Change Your Password';
-include('./includes/header.html');
+include('./includes/header.php');
 // create an array for storing errors
 $pass_errors = array();
 // check for the current password

@@ -2,7 +2,7 @@
 require('./includes/config.inc.php');
 require(MYSQL);
 $page_title = 'Forgot Your Password?';
-include('./includes/header.html');
+include('./includes/header.php');
 $pass_errors = array();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {

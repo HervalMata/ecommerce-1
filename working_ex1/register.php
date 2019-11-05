@@ -13,7 +13,7 @@ require(MYSQL);
 
 // Include the header file:
 $page_title = 'Register';
-include('./includes/header.html');
+include('./includes/header.php');
 
 // For storing registration errors:
 $reg_errors = array();

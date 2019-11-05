@@ -3,7 +3,7 @@ require('./includes/config.inc.php');
 redirect_invalid_user('user_admin');
 require(MYSQL);
 $page_title = 'Add a Site Content Page';
-include('./includes/header.html');
+include('./includes/header.php');
 $add_page_errors = array();
 if (!isset($_POST)) {
 	if (!empty($_POST['title'])) {
@@ -64,4 +64,18 @@ create_form_input('content', 'textarea', 'Content', $add_page_errors);
 ?>
 <input type="submit" name="submit_button" value="Add This Page" id="submit_button" class="btn btn-default" />
 </fieldset>
+</form>
+<script type="text/javascript" src="js/tinymce/tinymce.min.js"></script>
+<script type="text/javascript">
+	tinyMCE.init({
+		selector : "#content",
+		width : 800,
+		height : 400,
+		browser_spellcheck : true,
+		plugins: "paste,searchreplace,fullscreen,hr,link,anchor,image,charmap,media,autoresize,autosave,contextmenu,wordcount",
+		toolbar1: "cut,copy,paste,|,undo,redo,removeformat,|hr,|,link,unlink,anchor,image,|,charmap,media,|,search,replace,|,fullscreen",
+		toolbar2: "bold,italic,underline,strikethrough,|,alignleft,aligncenter,alignright,alignjustify,|,formatselect,|,bullist,numlist,|,oudent,indent,blockquote,",
+		content_css : "css/bootstrap.min.css",
+	});
+</script>
 <?php include('./includes/footer.html'); ?>
