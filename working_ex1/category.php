@@ -12,8 +12,8 @@ if (filter_var($_GET['id'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
 		include('./includes/footer.html');
 		exit();
 	}
-	list($page_title) = mysqli_fetch_array($r, MYSLI_NUM);
-	include('./includes/header.html');
+	list($page_title) = mysqli_fetch_array($r, MYSQLI_NUM);
+	include('./includes/header.php');
 	echo '<h1>' . htmlspecialchars($page_title) . '</h1>';
 	if (isset($_SESSION['user_id']) && !isset($_SESSION['user_not_expired'])) {
 		echo '<div class="alert"><h4>Expired Account</h4>Thank you for your interest in this content. Unfortunately your account has expired. Please <a href="renew.php">renew your account</a> in order to access site content.</div>';
