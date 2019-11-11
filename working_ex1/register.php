@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				// Store the new user ID in the session:
 				// Added in Chapter 6:
 				$uid = mysqli_insert_id($dbc);
-//				$_SESSION['reg_user_id']  = $uid;		
+				// $_SESSION['reg_user_id']  = $uid;		
 
 				// Display a thanks message...
 
@@ -103,14 +103,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				echo '<div class="alert alert-success"><h3>Thanks!</h3><p>Thank you for registering! To complete the process, please now click the button below so that you may pay for your site access via PayPal. The cost is $10 (US) per year. <strong>Note: When you complete your payment at PayPal, please click the button to return to this site.</strong></p></div>';
 
 				// PayPal link added in Chapter 6:
-				echo '<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-				<input type="hidden" name="cmd" value="_s-xclick">
-					<input type="hidden" name="email" value="' . $e . '">
-				<input type="hidden" name="hosted_button_id" value="8YW8FZDELF296">
-				<input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-				<img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
-				</form>
-				';
+				echo '<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+						<input type="hidden" name="custom" value="' . $uid . '">
+						<input type="hidden" name="email" value="' . $e . '">
+						<input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+						<img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+						</form>';
 
 				// Send a separate email?
 				$body = "Thank you for registering at <whatever site>. Blah. Blah. Blah.\n\n";
