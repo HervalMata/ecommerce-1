@@ -10,3 +10,7 @@ if (isset($_GET['type']) && ($_GET['type'] === 'goodies')) {
 include('./includes/header.php');
 require(MYSQL);
 $r = mysqli_query($dbc, "CALL select_categories('$type')");
+if (mysqli_num_ros($r) > 0) {
+	include('./views/error.html');
+}
+include('./includes/footer.html');
