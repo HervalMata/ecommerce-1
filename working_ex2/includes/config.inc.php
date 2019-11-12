@@ -11,3 +11,36 @@ if (strtoupper(substr(php_uname('s'), 0, 3)) == 'WIN') {
 } else {
 	define ('BASE_URI', '/Applications/XAMPP/xamppfiles/htdocs/ecommerce/working_ex2/includes/');
 }
+
+function my_error_handler($e_number, $e_message, $e_file, $e_line, $e_vars) {
+	
+	// build the error message:
+	$message = "An error occured in script '$e_file' on line $e_line:\n$e_message\n";
+
+	// add the backtrace:
+	$message .= "<pre>" .print_r(debug_backtrace(), 1) . "</pre>\n";
+
+	if (!LIVE) { // show the error in the browser
+
+		echo '<div class="error">' . nl2br($message) . '</div>';
+
+	} else { // development (print the error)
+
+		// send the error in an email:
+		error_log ($message, 1, CONTACT_EMAIL, 'From:admin@example.com');
+
+		// only print an error message in the browser, if the error isn't a notice:
+		if ($e_number != E_NOTICE) {
+			echo '<div class="error">A system error occured. We aplogize for any inconvenience.</div>';
+		}
+
+	} // end of $live if-else
+
+	return true; // so that PHP doesn't try to handle the error too.
+
+} // end of my_error_handler() definition
+
+// use my error handler:
+set_error_handler ('my_error_handler');
+
+// omit the closing PHP tag to avoid 'headers already sent' errors
