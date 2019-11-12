@@ -21,33 +21,33 @@ ie_png.fix(‘.png, .logo h1, .box .left-top-corner, .box .right-top-corner, .bo
 </script>
 <![endif]-->
 </head>
-	<body id="page1">
+<body id="page1">
 	<!-- header -->
-		<div id="header">
-			<div class="container">
-			<div class="wrapper">
-				<ul class="top-links">
-					<li><a href="/index.php" class="first"><img alt="" src="/images/icon-home.gif" /></a></li>
-					<li><a href="/cart.php"><img alt="" src="/images/icon-cart.gif" /></a></li>
-					<li><a href="/contact.php"><img alt="" src="/images/icon-mail.gif" /></a></li>
-					<li><a href="/sitemap.php"><img alt="" src="/images/icon-map.gif" /></a></li>
-				</ul>
-				<div class="logo">
-					<h1><a href="/index.php">Coffee</a><span>Wouldn’t you love a cup right now?</span></h1>
-				</div>
-			</div>
-			<ul class="nav">
-				<!-- MENU -->
-				<li><a href="/shop/coffee/">Coffee</a></li>
-				<li><a href="/shop/goodies/">Goodies</a></li>
-				<li><a href="/shop/sales/">Sales</a></li>
-				<li><a href="/wishlist.php">Wish List</a></li>
-				<li><a href="/cart.php">Cart</a></li>
-				<!-- END MENU -->
+	<div id="header">
+		<div class="container">
+		<div class="wrapper">
+			<ul class="top-links">
+				<li><a href="/index.php" class="first"><img alt="" src="/images/icon-home.gif" /></a></li>
+				<li><a href="/cart.php"><img alt="" src="/images/icon-cart.gif" /></a></li>
+				<li><a href="/contact.php"><img alt="" src="/images/icon-mail.gif" /></a></li>
+				<li><a href="/sitemap.php"><img alt="" src="/images/icon-map.gif" /></a></li>
 			</ul>
+			<div class="logo">
+				<h1><a href="/index.php">Coffee</a><span>Wouldn’t you love a cup right now?</span></h1>
 			</div>
 		</div>
+		<ul class="nav">
+			<!-- MENU -->
+			<li><a href="/shop/coffee/">Coffee</a></li>
+			<li><a href="/shop/goodies/">Goodies</a></li>
+			<li><a href="/shop/sales/">Sales</a></li>
+			<li><a href="/wishlist.php">Wish List</a></li>
+			<li><a href="/cart.php">Cart</a></li>
+			<!-- END MENU -->
+		</ul>
+		</div>
+	</div>
 	<!-- content -->
 	<div id="content">
-	<div class="container">
-	<div class="inside">
+		<div class="container">
+			<div class="inside">
