@@ -6,8 +6,8 @@ if (strtoupper(substr(php_uname('s'), 0, 3)) == 'WIN') {
 } else {
 	define ('BASE_URI', '/Applications/XAMPP/xamppfiles/htdocs/ecommerce/working_ex1/includes/');
 }
-define ('BASE_URL', 'localhost/ecommerce/working_ex1/');
-define ('MYSQL', BASE_URI . 'mysql.inc.php');
+define('BASE_URL', 'localhost/ecommerce/working_ex1/');
+define('MYSQL', BASE_URI . 'mysql.inc.php');
 session_start();
 // define error handling
 function my_error_handler($e_number, $e_message, $e_file,
