@@ -2,7 +2,7 @@
 // Set the database access information as constants:
 DEFINE('DB_USER', 'nf0164323');
 DEFINE('DB_PASSWORD', 'red28car');
-DEFINE('DB_HOST'), 'localhost');
+DEFINE('DB_HOST', 'localhost');
 DEFINE('DB_NAME', 'ecommerce2');
 
 // Make the connection:

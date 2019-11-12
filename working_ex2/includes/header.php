@@ -13,7 +13,7 @@ echo 'Coffee - Wouldn\'t You Love a Cup Right Now?';
 <meta name="description" content="Place your description here" />
 <meta name="keywords" content="put, your, keyword, here" />
 <meta name="author" content="Templates.com - website templates provider" />
-<link href="/css/style.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
 <!--[if lt IE 7]>
 <script type="text/javascript" src="/js/ie_png.js"></script>
 <script type="text/javascript">
