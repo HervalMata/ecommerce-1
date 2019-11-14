@@ -11,8 +11,8 @@ include('./includes/header.php');
 require(MYSQL);
 $r = mysqli_query($dbc, "CALL select_categories('$type')");
 if (mysqli_num_rows($r) > 0) {
-	include('./views/list_categories.html');
+	include('./views/list_categories.php');
 } else {
-	include('./views/error.html');
+	include('./views/error.php');
 }
-include('./includes/footer.html');
+include('./includes/footer.php');

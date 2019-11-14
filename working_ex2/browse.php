@@ -13,8 +13,8 @@ if (isset($_GET['type'], $_GET['category'], $_GET['id']) && filter_var($_GET['id
 if (!$type || !$sp_cat || !$category) {
 	$page_title = 'Error!';
 	include('./includes/header.php');
-	include('./views/error.html');
-	include('./includes/footer.html');
+	include('./views/error.php');
+	include('./includes/footer.php');
 	exit();
 }
 $page_title = ucfirst($type) . ' to Buy::' . $category;
@@ -23,12 +23,12 @@ require(MYSQL);
 $r = mysqli_query($dbc, "CALL select_products('$type', $sp_cat)");
 if (mysqli_num_rows($r) > 0) {
 	if ($type === 'goodies') {
-		include('./views/list_goodies.html');
+		include('./views/list_goodies.php');
 	} elseif ($type == 'coffee') {
-		include('./views/list_coffees.html');
+		include('./views/list_coffees.php');
 	}
 } else { // inlcude the "noproducts" page:
-	include('./views/noproducts.html');
+	include('./views/noproducts.php');
 }
-include('./includes/footer.html');
+include('./includes/footer.php');
 ?>
