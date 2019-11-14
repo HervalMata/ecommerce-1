@@ -30,3 +30,5 @@ if (mysqli_num_rows($r) > 0) {
 } else { // inlcude the "noproducts" page:
 	include('./views/noproducts.html');
 }
+include('./includes/footer.html');
+?>
