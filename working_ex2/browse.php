@@ -18,7 +18,7 @@ if (!$type || !$sp_cat || !$category) {
 	exit();
 }
 $page_title = ucfirst($type) . ' to Buy::' . $category;
-include('./inlcudes.header.php')
+include('./inlcudes.header.php');
 require(MYSQL);
 $r = mysqli_query($dbc, "CALL select_products('$type', $sp_cat)");
 if (mysqli_num_rows($r) > 0) {
