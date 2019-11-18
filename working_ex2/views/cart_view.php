@@ -22,4 +22,17 @@
 				<td align="right"><a href="/wishlist.php?sku=' . $row['sku'] . '&action=move&qty=' . $row['quantity'] .'">Move to Wish List</a><br /><a href="/cart.php?sku=' . $row['sku'] . '&action=remove">Remove from Cart</a></td>
 				</tr>
 				';
-		}
+				if ($row['stock'] < $row['quantity']) {
+					echo '<tr class="error"><td colspan="5" align="center">There are only ' . $row['stock'] . ' left in stock of the ' . $row['name'] . '. Please update the quantity, remove the item entirely, or move it to your wish list.</td></tr>';
+				}
+				$total += $subtotal;
+		} // end of while loop
+		echo '<tr>
+			<td colspan="3" align="right"><strong>Total</strong></td>
+			<td align="right">$' . number_format($total, 2) . '</td>
+			<td>&nbsp;</td>
+		</tr>
+		';
+		echo '</table><br /><p align="center"><input type="submit" value="Update Quantities" class="button" /></form></p><br /><p align="center"><a href="https://<?php echo BASE_URL; ?> checkout.php" class="button">Checkout</a></p>';
+		echo BOX_END;
+		?>
