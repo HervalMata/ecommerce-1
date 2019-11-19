@@ -27,6 +27,14 @@
 				}
 				$total += $subtotal;
 		} // end of while loop
+		$shipping = get_shipping($total);
+		$total += $shipping;
+		echo '<tr>
+			<td colspan="3" align="right"><strong>Shipping &amp; Handling</strong></td>
+			<td align="right">$' . number_format($shipping, 2). '</td>
+			<td>&nbsp;</td>
+			</tr>
+		';
 		echo '<tr>
 			<td colspan="3" align="right"><strong>Total</strong></td>
 			<td align="right">$' . number_format($total, 2) . '</td>
