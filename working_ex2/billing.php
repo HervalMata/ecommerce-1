@@ -18,7 +18,7 @@ if (mysqli_num_rows($r) > 0) {
 	} else {
 		$values = 'POST';
 	}
-	include('./views/billing.php');
+	include('./views/billing_view.php');
 } else { // empty cart
 	include('./views/emptycart.php');
 }
