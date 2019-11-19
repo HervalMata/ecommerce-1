@@ -32,11 +32,11 @@ function get_just_price($regular, $sales) {
 }
 
 function parse_sku($sku) {
-	// Grab the first character:
+	// grab the first character:
 	$type_abbr = substr($sku, 0, 1);
-	// Grab the remaining characters:
+	// grab the remaining characters:
 	$pid = substr($sku, 1);
-	// Validate the type:
+	// validate the type:
 	if ($type_abbr === 'C') {
 		$type = 'coffee';
 	} elseif ($type_abbr === 'G') {
@@ -44,8 +44,29 @@ function parse_sku($sku) {
 	} else {
 		$type = NULL;
 	}
-	// Validate the product ID:
+	// validate the product ID:
 	$pid = (filter_var($pid, FILTER_VALIDATE_INT, array('min_range' => 1))) ? $pid : NULL;
-	// Return the values:
+	// return the values:
 	return array($type, $pid);
-} // End of parse_sku() function.
+} // end of parse_sku() function.
+
+function get_shipping($total = 0) {
+	// set the base handling charges:
+	$shipping = 3;
+	// sate is based upon the total:
+	if ($total < 10) {
+	$rate = .25;
+	} elseif ($total < 20) {
+	$rate = .20;
+	} elseif ($total < 50) {
+	$rate = .18;
+	} elseif ($total < 100) {
+	$rate = .16;
+	} else {
+	$rate = .15;
+	}
+	// calculate the shipping total:
+	$shipping = $shipping + ($total * $rate);
+	// return the shipping total:
+	return $shipping;
+} // end of get_shipping() function.
