@@ -73,23 +73,50 @@ if (SERVER['REQUEST_METHOD'] === 'POST') {
 			$cc_last_four = substr($cc_number, -4);
 			$shipping = $_SESSION['shipping'] * 100;
 			$r = mysqli_query($dbc, "CALL add_order({$_SESSION['customer_id']}, '$uid', $shipping, $cc_last_four, @total, @oid)");
-			if($r) {
-				$r = mysqli_query($dbc, 'SELECT @total, @oid');
-				if (mysqli_num_rows($r) == 1) {
-					list($order_total, $order_id) = mysqli_fetch_array($r);
-					$_SESSION['order_total'] = $order_total;
-					$_SESSION['order_id'] = $order_id;
-				} else { // could not retrieve the order id and total
-					unset($cc_number, $cc_cvv, $_POST['cc_number'], $_POST['cc_cvv']);
-					trigger_error('Your order could not be processed due to a system error. We apologize for the inconvenience.');
-				} else { // the add_order() procedure failed
-					unset($cc_number, $cc_cvv, $_POST['cc_number'], $_POST['cc_cvv']);
-					trigger_error('Your order could not be processed due to  system error. We apologize for the inconvenience.');
-				}
-			} // end of isset($_SESSION['order_id]) if-else'])
-		} // errors occured if
-	} // end of REQUEST_METHOD if
-}
+		}
+		if($r) {
+			$r = mysqli_query($dbc, 'SELECT @total, @oid');
+			if (mysqli_num_rows($r) == 1) {
+				list($order_total, $order_id) = mysqli_fetch_array($r);
+				$_SESSION['order_total'] = $order_total;
+				$_SESSION['order_id'] = $order_id;
+			} else { // could not retrieve the order id and total
+				unset($cc_number, $cc_cvv, $_POST['cc_number'], $_POST['cc_cvv']);
+				trigger_error('Your order could not be processed due to a system error. We apologize for the inconvenience.');
+			} else { // the add_order() procedure failed
+				unset($cc_number, $cc_cvv, $_POST['cc_number'], $_POST['cc_cvv']);
+				trigger_error('Your order could not be processed due to  system error. We apologize for the inconvenience.');
+			}
+		} // end of isset($_SESSION['order_id]) if-else'])
+		if (isset($order_id, $order_total)) {
+			require('includes/vendor/anet_php_sdk/AuthorizeNet.php');
+			$aim = new AuthorizeNetAIM(API_LOGIN_ID, TRANSACTION_KEY);
+			$aim->amount = $order_total/100;
+			$aim->invoice_num = $order_id;
+			$aim->cust_id = $_SESSION['customer_id'];
+			$aim->card_num = $cc_number;
+			$aim->exp_date = $cc_exp;
+			$aim->card_code = $cc_cvv;
+			$aim->first_name = $cc_first_name;
+			$aim->last_name = $cc_last_name;
+			$aim->address = $cc_address;
+			$aim->state = $cc_state;
+			$aim->city = $cc_city;
+			$aim->zip = $cc_zip;
+			$aim->email = $_SESSION['email'];
+			$response = $aim->authorizeOnly();
+			$reason = addslashes($response->respone_reason_text);
+			$full_response = addslashes($response->response);
+			$r =mysqli_query($dbc, "CALL add_transaction($order_id, '{$response->transaction_type}', $order_total, {$response->response_code}, '$reason', {$response->transaction_id}, '$full_response')");
+			if ($response->approved) {
+				$_SESSION['response_code'] = $response_code;
+				$location = 'https://' . BASE_URL . 'final.php';
+				header("Location: $location");
+				exit()
+			}
+		}
+	} // errors occured if
+} // end of REQUEST_METHOD if
 include('./includes/checkout_header.php');
 $r = mysqli_query($dbc, "CALL get_shopping_cart_contents('$uid')");
 if (mysqli_num_rows($r) > 0) {
