@@ -15,6 +15,8 @@ define('BASE_URL', 'localhost/ecommerce/working_ex1/');
 define('MYSQL', BASE_URI . 'mysql.inc.php');
 define('BOX_BEGIN', '<!-- box begin --><div class="box alt"><div class="left-top-corner"><div class="right-top-corner"><div class="border-top"></div></div></div><div class="border-left"><div class="border-right"><div class="inner">');
 define('BOX_END', '</div></div></div><div class="left-bot-corner"><div class="right-bot-corner"><div class="border-bot"></div></div></div></div><!-- box end -->');
+define('API_LOGIN_ID', '29hxJ9e');
+define('TRANSACTION_KEY', '8EKf5a673hC3jqD2')
 function my_error_handler($e_number, $e_message, $e_file, $e_line, $e_vars) {
 	
 	// build the error message:
