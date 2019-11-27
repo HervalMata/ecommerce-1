@@ -6,6 +6,7 @@ echo BOX_BEGIN;
 echo '<div class="inner">
 <h2>Your Billing Information</h2>
 <p>Please enter your billing information below. Then click the button to complete your order. For your security, we will not store your billing information in any way. We accept Visa, MasterCard, American Express, and Discover.</p>';
+if (isset($message)) echo "<p class=\"error\">$message</p>";
 echo '<form action="/billing.php" method="POST" id="billing_form">';
 include('./includes/form_functions.inc.php');
 ?>
