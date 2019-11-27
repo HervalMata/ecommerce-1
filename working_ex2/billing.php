@@ -126,7 +126,7 @@ if (SERVER['REQUEST_METHOD'] === 'POST') {
 						break;
 				}
 			} // end of $response_array[0] if-else
-		}
+		} // end of isset($order_id, $order_total) if
 	} // errors occured if
 } // end of REQUEST_METHOD if
 include('./includes/checkout_header.php');
