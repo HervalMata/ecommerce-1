@@ -87,7 +87,7 @@ if (SERVER['REQUEST_METHOD'] === 'POST') {
 				unset($cc_number, $cc_cvv, $_POST['cc_number'], $_POST['cc_cvv']);
 				trigger_error('Your order could not be processed due to  system error. We apologize for the inconvenience.');
 			}
-		} // end of isset($_SESSION['order_id]) if-else'])
+		} // end of isset($_SESSION['order_id']) if-else
 		if (isset($order_id, $order_total)) {
 			require('includes/vendor/anet_php_sdk/AuthorizeNet.php');
 			$aim = new AuthorizeNetAIM(API_LOGIN_ID, TRANSACTION_KEY);
@@ -112,8 +112,20 @@ if (SERVER['REQUEST_METHOD'] === 'POST') {
 				$_SESSION['response_code'] = $response_code;
 				$location = 'https://' . BASE_URL . 'final.php';
 				header("Location: $location");
-				exit()
-			}
+				exit();
+			} else {
+				switch ($response->response_code) {
+					case '2'; // declined
+						$message = 	$response->response_reason_text . ' Please fix the error or try another card.';
+						break;
+					case '3': // error
+						$message = $response->response_reason_text . ' Please fix the error or try another card.';
+						break;
+					case '4': // held for review
+						$message = "The transaction is being held for review. You will be contacted ASAP about your order. We aplogize for any inconvenience.";
+						break;
+				}
+			} // end of $response_array[0] if-else
 		}
 	} // errors occured if
 } // end of REQUEST_METHOD if
