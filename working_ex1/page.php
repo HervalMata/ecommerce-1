@@ -30,5 +30,28 @@ if (isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT, array('mi
 	include('includes/header.php');
 	echo '<div class="alert alert-danger">This page has been accessed in error.</div>';
 } // end of primary if
+if ($_SERVER[‘REQUEST_METHOD’] === ‘POST’) {
+	if (isset($_POST[‘notes’]) && !empty($_POST[‘notes’])) {
+		$notes = $_POST[‘notes’];
+		if (isset($_SESSION[‘user_not_expired’])) {
+			echo “<div>{$row[‘content’]}</div>”;
+			$q = “REPLACE INTO notes (user_id, page_id, note) VALUES ($user_id, $page_id, ‘” . escape_data($notes, $dbc) . “’)”;
+			$r = mysqli_query($dbc, $q);
+			if (mysqli_affected_rows($dbc) > 0) {
+			echo ‘<div class=”alert alert-success”>Your notes have been saved.</div>’;
+			}
+		}
+	}
+	if (!isset($notes)) {
+		$q = “SELECT note FROM notes WHERE user_id=$user_id AND page_id=$page_id”;
+		$r = mysqli_query($dbc, $q);
+		if (mysqli_num_rows($r) === 1) {
+		list($notes) = mysqli_fetch_array($r, MYSQLI_NUM);
+		}
+	}
+		echo ‘<form action=”page.php ?id=’ . $page_id . ‘” method=”post” accept-charset=”utf-8”><fieldset><legend>Your Notes</legend><textarea name=”notes” class=”form-control”>’;
+		if (isset($notes) && !empty($notes)) echo htmlspecialchars($notes);
+		echo ‘</textarea><br><input type=”submit” name=”submit_button” value=”Save” id=”submit_button” class=”btn btn-default” /></fieldset></form>’;
+}
 include('./includes/footer.html');
 ?>
