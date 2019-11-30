@@ -19,27 +19,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$pass_errors['email'] = 'Please enter a valid email address!';
 	} // End of $_POST['email'] IF
 	if (empty($pass_errors)) {
-		$p = substr(md5(iniqid(rand(), true)), 10, 15);
-		$q = "UPDATE users SET pass='" . password_hash($p,
-			PASSWORD_BCRYPT) . "' WHERE id=$uid LIMIT 1";
-		$r = mysqli_query($dbc, $q);
-		if (mysqli_affected_rows($dbc) === 1) {
-			$body = "Your password to log into <whatever site> has been 
-			temporarily changed to '$p'. Please log in using that password 
-			and this email address. Then you may change your password to 
-			something more familiar.";
-			mail($_POST['email'], 'Your temporary password.', $body,
-			'From: admin@example.com');
-			echo '<h1>Your password has been changed.</h1><p>You will receieve 
-			the new, temporary password via email. Once you have logged 
-			in with this new password, you may change it by clicking on the 
-			"Change Password" link.</p>';
+		$token = openssl_random_pseudo_bytes(32);
+		$token = bin2hex($token);
+		$q = 'REPLACE INTO access_tokens (user_id, token, date_expires) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 15 MINUTE))';
+		$stmt = mysqli_prepare($dbc, $q);
+		mysqli_stmt_bind_param($stmt, 'is', $uid, $token);
+		mysqli_stmt_execute($stmt);
+		if (mysqli_stmt_affected_rows($stmt) === 1) {
+			$url = 'https://' . BASE_URL . 'reset.php?t=' . $token;
+			$body = "This email is in response to a forgotten password reset request at 'Knowledge is Power'. If you did make this request, click the following link to be able to access your account:
+			$url
+			For security purposes, you have 15 minutes to do this. If you do not click this link within 15 minutes, you'll need to request a password reset again.
+			If you have _not_ forgotten your password, you can safely ignore this message and you will still be able to login with your existing password. ";
+			mail($email, 'Password Reset at Knowledge is Power', $body, 'FROM: ' . CONTACT_EMAIL);
+			echo '<h1>Reset Your Password</h1><p>You will receive an access code via email. Click the link in that email to gain access to the site. Once you have done that, you may then change your password.</p>';
 			include('./includes/footer.html');
 			exit();
-		} else { // If it did not run OK
-			trigger_error('Your password could not be changed due to a 
-				system error. We apologize for any inconvenience.');
-		}
+		} else { // If it did not run OK.
+			trigger_error('Your password could not be changed due to a system error. We apologize for any inconvenience.');
+			}
 	} // End of $uid IF
 } // End of the main Submit conditional
 require_once('./includes/form_functions.inc.php');
