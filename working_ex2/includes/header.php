@@ -15,6 +15,17 @@ echo 'Coffee - Wouldn\'t You Love a Cup Right Now?';
 <meta name="author" content="Templates.com - website templates provider" />
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 <link href="/css/superfish.css" rel="stylesheet" type="text/css" />
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" charset="utf-8"></script>
+<script src="/js/hoverIntent.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/superfish.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	$(function() {
+		$('ul.sf-menu').superfish({
+			autoArrows: false,
+			speed: 'fast'
+		});
+	});
+</script>
 <!--[if lt IE 7]>
 <script type="text/javascript" src="/js/ie_png.js"></script>
 <script type="text/javascript">
