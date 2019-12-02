@@ -49,14 +49,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		list($notes) = mysqli_fetch_array($r, MYSQLI_NUM);
 		}
 	}
-		echo '<form action="page.php ?id=' . $page_id . '" method="post" accept-charset="utf-8"><fieldset><legend>Your Notes</legend><textarea name="notes" class="form-control">';
+		echo '<form id="notes_form" action="page.php ?id=' . $page_id . '" method="post" accept-charset="utf-8"><fieldset><legend>Your Notes</legend><textarea name="notes" id="notes" class="form-control">';
 		if (isset($notes) && !empty($notes)) echo htmlspecialchars($notes);
 		echo '</textarea><br><input type="submit" name="submit_button" value="Save" id="submit_button" class="btn btn-default" /></fieldset></form>';
 }
 echo '<script type="text/javascript">
 var page_id = ' . $page_id . ';
 </script>
-<script src="js/favorite.js"></script>';
+<script src="js/favorite.js"></script>;
+<script src="js/notes.js"></script>';
 if (mysqli_num_rows($r) === 1) {
 		echo '<h3 id="favorite_h3"><img src="images/heart_32.png" width="32" height="32"> <span class="label label-info">This is a favorite!</span> <a id="remove_favorite_link "href="remove_from_favorites.php?id=' . $page_id . '"><img src="images/close_32.png" width="32" height="32"></a></h3>';
 	} else {
