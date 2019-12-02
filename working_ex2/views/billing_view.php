@@ -24,3 +24,13 @@ include('./includes/form_functions.inc.php');
 <div align="center" id="submit_div"><input type="submit" value="Place Order" class="button" /></div></fieldset></form>
 <div>By clicking this button, your order will be completed and your credit card will be charged.</div>
 <?php echo BOX_END; ?>
+<script type="text/javascript">
+$(function() {
+    $('#billing_form').submit(function() {
+        $('input[type-submit]', this).attr('disabled', 'disabled');
+        $('#submit_div').html('<p class="button">Processing...</p>');
+        <form action="/billing.php" method="POST" id="billing_form">
+        <div align="center" id="submit_div">
+    });
+});
+</script>
