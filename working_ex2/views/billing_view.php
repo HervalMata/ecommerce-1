@@ -9,11 +9,16 @@ echo '<div class="inner">
 if (isset($message)) echo "<p class=\"error\">$message</p>";
 echo '<form action="/billing.php" method="POST" id="billing_form">';
 include('./includes/form_functions.inc.php');
+echo '<span class="error" id=error_span"></span>';
 ?>
 <fieldset>
-<div class="field"><label for="cc_number"><strong>Card Number</strong></label><br /><?php create_form_input('cc_number', 'text', $billing_errors, 'POST', array('autocomplete' => 'off')); ?></div>
-<div class="field"><label for="exp_date"><strong>Expiration Date</strong></label><br /><?php create_form_input('cc_exp_month', 'select', $billing_errors); ?><?php create_form_input('cc_exp_year', 'select', $billing_errors); ?></div>
-<div class="field"><label for="cc_cvv"><strong>CVV</strong></label><br /><?php create_form_input('cc_cvv', 'text', $billing_errors, 'POST', array('autocomplete' => 'off')); ?></div>
+<div class="field"><label for="cc_number"><strong>Card Number</strong></label><br />
+<input type="text" id="cc_number" autocomplete="off" />
+</div>
+<div class="field"><label for="exp_date"><strong>Expiration Date</strong></label><br />
+<input type="text" id="cc_exp_month" autocomplete="off" />/<input type="text" id="cc_exp_year" autocomplete="off" />
+</div>
+<div class="field"><label for="cc_cvv"><strong>CVV</strong></label><br /><input type="text" id="cc_cvv" autocomplete="off" /></div>
 <div class="field"><label for="cc_first_name"><strong>First Name</strong></label><br /><?php create_form_input('cc_first_name', 'text', $billing_errors, $values); ?></div>
 <div class="field"><label for="cc_last_name"><strong>Last Name</strong></label><br /><?php create_form_input('cc_last_name', 'text', $billing_errors, $values); ?></div>
 <div class="field"><label for="cc_address"><strong>Street Address </strong></label><br /><?php create_form_input('cc_address', 'text', $billing_errors, $values); ?></div>
