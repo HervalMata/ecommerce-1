@@ -14,6 +14,7 @@ echo 'Coffee - Wouldn\'t You Love a Cup Right Now?';
 <meta name="keywords" content="put, your, keyword, here" />
 <meta name="author" content="Templates.com - website templates provider" />
 <link href="css/style.css" rel="stylesheet" type="text/css" />
+<link href="/css/superfish.css" rel="stylesheet" type="text/css" />
 <!--[if lt IE 7]>
 <script type="text/javascript" src="/js/ie_png.js"></script>
 <script type="text/javascript">
@@ -36,13 +37,16 @@ ie_png.fix(‘.png, .logo h1, .box .left-top-corner, .box .right-top-corner, .bo
 				<h1><a href="index.php">Coffee</a><span>Wouldn’t you love a cup right now?</span></h1>
 			</div>
 		</div>
-		<ul class="nav">
+		<ul class="nav sf-menu">
 			<!-- MENU -->
-			<li><a href="/ecommerce/working_ex2/shop/coffee/">Coffee</a></li>
-			<li><a href="/ecommerce/working_ex2/shop/goodies/">Goodies</a></li>
-			<li><a href="/ecommerce/working_ex2/shop/sales/">Sales</a></li>
-			<li><a href="/ecommerce/working_ex2/wishlist.php">Wish List</a></li>
-			<li><a href="/ecommerce/working_ex2/cart.php">Cart</a></li>
+				<li class="first"><a href="#">Products</a><ul>
+				<li><a href="add_specific_coffees.php">Add Coffee Products</a></li>
+				<li><a href="add_other_products.php">Add Non-Coffee Products</a></li>
+				<li><a href="add_inventory.php">Add Inventory</a></li>
+				</ul></li>
+				<li><a href="create_sales.php">Sales</a></li>
+				<li><a href="view_orders.php">Orders</a></li>
+				<li><a href="#">Customers</a></li>
 			<!-- END MENU -->
 		</ul>
 		</div>
